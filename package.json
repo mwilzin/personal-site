@@ -8,5 +8,7 @@
   },
   "dependencies": {
     "astro": "^4.0.0"
-  }
+  },
+  "site": "https://mwilzin.github.io/personal-site/",
+  "base": "/personal-site/"
 }
