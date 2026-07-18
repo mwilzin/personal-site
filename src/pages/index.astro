@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import profileImage from '../assets/profile.jpg';
 ---
 <Layout title="Marc-Aurel Wilzin | Mobile App Developer">
     <main>
@@ -18,7 +19,7 @@ import Layout from '../layouts/Layout.astro';
         </style>
 
         <div class="header">
-            <img src="https://images.squarespace-cdn.com/content/v1/6650b951a8a539751307732a/4faa272e-a692-4d68-bd12-89fdb2bfab7c/Marc-Aurel_Wilzin.jpg" alt="Marc-Aurel Wilzin" class="profile-img">
+            <img src={profileImage.src} alt="Marc-Aurel Wilzin" class="profile-img">
             <div>
                 <h1>Marc-Aurel Wilzin</h1>
                 <p class="job-title">Computer Science Student & Mobile Developer</p>
