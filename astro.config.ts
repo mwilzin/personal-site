@@ -25,7 +25,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'static',
-  trailingSlash: 'never',
+  trailingSlash: false,
 
   integrations: [
     sitemap(),
