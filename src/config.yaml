@@ -2,7 +2,7 @@ site:
   name: "Marc-Aurel Wilzin"
   site: "https://mwilzin.github.io/personal-site/"
   base: "/personal-site/"
-  trailingSlash: false
+  trailingSlash: always
   defaultLanguage: "de"
 
 
