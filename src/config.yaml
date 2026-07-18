@@ -1,10 +1,10 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
-  base: '/'
+  name: "Marc-Aurel Wilzin"
+  site: "https://mwilzin.github.io/personal-site/"
+  base: "/personal-site/"
   trailingSlash: false
+  defaultLanguage: "de"
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
 
 # Default SEO metadata
 metadata:

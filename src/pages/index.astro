@@ -1,0 +1,45 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/widgets/Content.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Marc-Aurel Wilzin | Mobile Developer',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="Computer Science Student & Mobile Developer"
+    title="Hallo, ich bin Marc-Aurel"
+    subtitle="Ich entwickle leidenschaftlich performante Mobile Apps mit Flutter und Swift."
+    actions={[{ text: 'Mehr über mich', href: '#about' }]}
+  />
+
+  <Features
+    id="features"
+    title="Was ich tue"
+    items={[
+      { title: 'Mobile Development', description: 'Cross-platform mit Flutter, native Apps mit Swift.', icon: 'tabler:brand-flutter' },
+      { title: 'Backend Integration', description: 'Firebase, Supabase & REST API Integration.', icon: 'tabler:database' },
+      { title: 'Software Engineering', description: 'Strukturiertes Vorgehen, agile Methodik, Software-Architektur.', icon: 'tabler:code' },
+    ]}
+  />
+
+  <Content
+    id="about"
+    title="Über mich"
+    subtitle="Informatik-Student an der Uni Tübingen & Mobile Developer bei page one."
+    items={[
+      { title: 'Erfahrung', description: 'Von nativen iOS-Apps zu komplexen Flutter-Lösungen.' },
+      { title: 'Projekte', description: 'Entwicklung der TVL Tennis App und preisgekrönte Kirchen-Apps.' },
+    ]}
+  />
+
+  <CallToAction
+    title="Lust auf Zusammenarbeit?"
+    actions={[{ text: 'Schreib mir eine E-Mail', href: 'mailto:marc-aurel-w@online.de' }]}
+  />
+</Layout>
