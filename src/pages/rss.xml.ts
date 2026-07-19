@@ -1,15 +1,11 @@
 import { getRssString } from '@astrojs/rss';
 
+import { SITE, METADATA, APP_BLOG } from 'astrowind:config';
 import { fetchPosts } from '~/utils/blog';
 import { getPermalink } from '~/utils/permalinks';
 
-const SITE_NAME = 'Marc-Aurel Wilzin';
-const SITE_DESCRIPTION = 'Personal website and blog';
-const BLOG_ENABLED = true;
-const TRAILING_SLASH = 'always' as const;
-
 export const GET = async () => {
-  if (!BLOG_ENABLED) {
+  if (!APP_BLOG.isEnabled) {
     return new Response(null, {
       status: 404,
       statusText: 'Not found',
@@ -19,8 +15,8 @@ export const GET = async () => {
   const posts = await fetchPosts();
 
   const rss = await getRssString({
-    title: `${SITE_NAME}’s Blog`,
-    description: SITE_DESCRIPTION,
+    title: `${SITE.name}’s Blog`,
+    description: METADATA?.description || '',
     site: import.meta.env.SITE,
 
     items: posts.map((post) => ({
@@ -30,7 +26,7 @@ export const GET = async () => {
       pubDate: post.publishDate,
     })),
 
-    trailingSlash: TRAILING_SLASH,
+    trailingSlash: SITE.trailingSlash === true || SITE.trailingSlash === 'always',
   });
 
   return new Response(rss, {

@@ -28,11 +28,15 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
         const rawJsonConfig = (await loadConfig(_themeConfig)) as Config;
         const { SITE, I18N, METADATA, APP_BLOG, UI, ANALYTICS } = configBuilder(rawJsonConfig);
 
+        // Accept boolean (AstroWind config.yaml) or Astro enum strings.
+        const trailingSlash =
+          SITE.trailingSlash === true || SITE.trailingSlash === 'always' ? 'always' : 'never';
+
         updateConfig({
           site: SITE.site,
           base: SITE.base,
 
-          trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+          trailingSlash,
 
           vite: {
             plugins: [
