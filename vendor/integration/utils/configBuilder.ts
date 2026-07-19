@@ -17,7 +17,8 @@ export interface SiteConfig {
   name: string;
   site?: string;
   base?: string;
-  trailingSlash?: boolean;
+  /** Boolean (AstroWind) or Astro enum string `'always' | 'never'`. */
+  trailingSlash?: boolean | 'always' | 'never';
   googleSiteVerificationId?: string;
 }
 export interface MetaDataConfig extends Omit<MetaData, 'title'> {

@@ -5,14 +5,16 @@ import { SITE, APP_BLOG } from 'astrowind:config';
 import { trim } from '~/utils/utils';
 
 export const trimSlash = (s: string) => trim(trim(s, '/'));
-const hasTrailingSlash = SITE.trailingSlash === 'always';
+
+/** Normalize SITE.trailingSlash (boolean or Astro enum string) to a boolean. */
+const wantsTrailingSlash = (value: unknown): boolean => value === true || value === 'always';
 
 const createPath = (...params: string[]) => {
   const paths = params
     .map((el) => trimSlash(el))
     .filter((el) => !!el)
     .join('/');
-  return '/' + paths + (hasTrailingSlash && paths ? '/' : '');
+  return '/' + paths + (wantsTrailingSlash(SITE.trailingSlash) && paths ? '/' : '');
 };
 
 const BASE_PATHNAME = SITE.base || '/';
@@ -32,9 +34,9 @@ export const POST_PERMALINK_PATTERN = trimSlash(APP_BLOG?.post?.permalink || `${
 /** */
 export const getCanonical = (path = ''): string | URL => {
   const url = String(new URL(path, SITE.site));
-  if (SITE.trailingSlash === 'never' && path && url.endsWith('/')) {
+  if (!wantsTrailingSlash(SITE.trailingSlash) && path && url.endsWith('/')) {
     return url.slice(0, -1);
-  } else if (SITE.trailingSlash === 'always' && path && !url.endsWith('/')) {
+  } else if (wantsTrailingSlash(SITE.trailingSlash) && path && !url.endsWith('/')) {
     return url + '/';
   }
   return url;
@@ -116,11 +118,19 @@ export const applyGetPermalinks = (menu: unknown = {}): unknown => {
     const result: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(menu)) {
       if (key === 'href') {
-        const href = value as MenuHref;
-        if (typeof href === 'object' && href !== null && href.type && href.url) {
-          result[key] = getPermalink(href.url, href.type);
-        } else {
-          result[key] = value;
+        if (typeof value === 'string') {
+          result[key] = getPermalink(value);
+        } else if (typeof value === 'object' && value !== null) {
+          const href = value as MenuHref;
+          if (href.type === 'home') {
+            result[key] = getHomePermalink();
+          } else if (href.type === 'blog') {
+            result[key] = getBlogPermalink();
+          } else if (href.type === 'asset') {
+            result[key] = getAsset(href.url ?? '');
+          } else if (href.url) {
+            result[key] = getPermalink(href.url, href.type);
+          }
         }
       } else {
         result[key] = applyGetPermalinks(value);
