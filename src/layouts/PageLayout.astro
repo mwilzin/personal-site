@@ -1,4 +1,5 @@
 ---
+import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import Announcement from '~/components/widgets/Announcement.astro';
@@ -13,25 +14,18 @@ export interface Props {
 
 const { metadata } = Astro.props;
 ---
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{metadata?.title || 'Marc-Aurel Wilzin'}</title>
-    </head>
-    <body>
-        <slot name="announcement">
-            <Announcement />
-        </slot>
-        <slot name="header">
-            <Header {...headerData} isSticky showRssFeed showToggleTheme />
-        </slot>
-        <main>
-            <slot />
-        </main>
-        <slot name="footer">
-            <Footer {...footerData} />
-        </slot>
-    </body>
-</html>
+
+<Layout metadata={metadata}>
+  <slot name="announcement">
+    <Announcement />
+  </slot>
+  <slot name="header">
+    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+  </slot>
+  <main>
+    <slot />
+  </main>
+  <slot name="footer">
+    <Footer {...footerData} />
+  </slot>
+</Layout>
