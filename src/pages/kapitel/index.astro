@@ -1,0 +1,115 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Kapitel',
+  description: 'Kapitel — die Study-App für Uni, Fokus und Kursmaterial. Support und rechtliche Hinweise.',
+  ignoreTitleTemplate: true,
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const supportEmail = 'kapitel@mwilzin.de';
+---
+
+<Layout metadata={metadata}>
+  <main class="kapitel-landing relative min-h-screen overflow-hidden">
+    <div class="kapitel-glow" aria-hidden="true"></div>
+
+    <div class="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-16 sm:px-8">
+      <p class="kapitel-eyebrow mb-5 text-sm font-semibold tracking-[0.18em] uppercase">Study app</p>
+
+      <h1 class="kapitel-brand mb-4 text-5xl leading-none font-semibold tracking-tight sm:text-7xl">Kapitel</h1>
+
+      <p class="mb-10 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl">
+        Deine Kurse, Fristen und Fokus-Sessions an einem Ort. Für iPhone, iPad und Mac.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          class="kapitel-cta inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
+          href={`mailto:${supportEmail}`}
+        >
+          Support schreiben
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-slate-300/80 bg-white/50 px-6 py-3 text-base font-semibold text-slate-800 backdrop-blur transition hover:bg-white dark:border-slate-600 dark:bg-slate-900/40 dark:text-slate-100 dark:hover:bg-slate-900/70"
+          href={getPermalink('/impressum')}
+        >
+          Impressum
+        </a>
+      </div>
+
+      <p class="mt-8 text-sm text-slate-500 dark:text-slate-400">
+        Oder direkt an
+        <a class="kapitel-link font-medium underline-offset-4 hover:underline" href={`mailto:${supportEmail}`}>
+          {supportEmail}
+        </a>
+        ·
+        <a class="kapitel-link font-medium underline-offset-4 hover:underline" href={getPermalink('/kapitel/datenschutz')}>
+          Datenschutz
+        </a>
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+  .kapitel-landing {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(46, 102, 105, 0.18), transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, rgba(201, 162, 39, 0.12), transparent 50%),
+      linear-gradient(180deg, #f4f1ea 0%, #ebe6dc 100%);
+    color: #1c1a16;
+  }
+
+  :global(.dark) .kapitel-landing {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(126, 182, 184, 0.16), transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, rgba(201, 162, 39, 0.08), transparent 50%),
+      linear-gradient(180deg, #12141a 0%, #0d0f14 100%);
+    color: #f0ece4;
+  }
+
+  .kapitel-glow {
+    position: absolute;
+    inset: auto -20% -30% auto;
+    width: min(70vw, 520px);
+    height: min(70vw, 520px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(46, 102, 105, 0.22), transparent 70%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .kapitel-eyebrow {
+    color: #2e6669;
+  }
+
+  :global(.dark) .kapitel-eyebrow {
+    color: #7eb6b8;
+  }
+
+  .kapitel-brand {
+    font-family: Fraunces, Georgia, serif;
+    letter-spacing: -0.03em;
+  }
+
+  .kapitel-cta {
+    background: #2e6669;
+  }
+
+  .kapitel-link {
+    color: #2e6669;
+  }
+
+  :global(.dark) .kapitel-link {
+    color: #7eb6b8;
+  }
+</style>
