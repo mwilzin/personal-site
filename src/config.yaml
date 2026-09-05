@@ -1,8 +1,8 @@
 site:
   name: "Marc-Aurel Wilzin"
-  site: "https://mwilzin.github.io/personal-site/"
-  base: "/personal-site/"
-  # true → Astro trailingSlash: 'always' (required for GitHub Pages project sites)
+  site: "https://mwilzin.de/"
+  base: "/"
+  # true → Astro trailingSlash: 'always'
   trailingSlash: true
   defaultLanguage: "de"
 

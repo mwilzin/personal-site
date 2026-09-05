@@ -13,73 +13,67 @@ const metadata = {
 };
 
 const supportEmail = 'kapitel@mwilzin.de';
+const impressumHref = getPermalink('/impressum');
+const datenschutzHref = getPermalink('/kapitel/datenschutz');
 ---
 
 <Layout metadata={metadata}>
-  <main class="kapitel-landing relative min-h-screen overflow-hidden">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <main class="kapitel-landing">
     <div class="kapitel-glow" aria-hidden="true"></div>
 
-    <div class="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-16 sm:px-8">
-      <p class="kapitel-eyebrow mb-5 text-sm font-semibold tracking-[0.18em] uppercase">Study app</p>
-
-      <h1 class="kapitel-brand mb-4 text-5xl leading-none font-semibold tracking-tight sm:text-7xl">Kapitel</h1>
-
-      <p class="mb-10 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl">
+    <div class="kapitel-inner">
+      <p class="kapitel-eyebrow">Study app</p>
+      <h1 class="kapitel-brand">Kapitel</h1>
+      <p class="kapitel-lead">
         Deine Kurse, Fristen und Fokus-Sessions an einem Ort. Für iPhone, iPad und Mac.
       </p>
 
-      <div class="flex flex-wrap items-center gap-3">
-        <a
-          class="kapitel-cta inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
-          href={`mailto:${supportEmail}`}
-        >
-          Support schreiben
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-slate-300/80 bg-white/50 px-6 py-3 text-base font-semibold text-slate-800 backdrop-blur transition hover:bg-white dark:border-slate-600 dark:bg-slate-900/40 dark:text-slate-100 dark:hover:bg-slate-900/70"
-          href={getPermalink('/impressum')}
-        >
-          Impressum
-        </a>
+      <div class="kapitel-actions">
+        <a class="kapitel-cta" href={`mailto:${supportEmail}`}>Support schreiben</a>
+        <a class="kapitel-secondary" href={impressumHref}>Impressum</a>
       </div>
 
-      <p class="mt-8 text-sm text-slate-500 dark:text-slate-400">
+      <p class="kapitel-meta">
         Oder direkt an
-        <a class="kapitel-link font-medium underline-offset-4 hover:underline" href={`mailto:${supportEmail}`}>
-          {supportEmail}
-        </a>
+        <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
         ·
-        <a class="kapitel-link font-medium underline-offset-4 hover:underline" href={getPermalink('/kapitel/datenschutz')}>
-          Datenschutz
-        </a>
+        <a href={datenschutzHref}>Datenschutz</a>
       </p>
     </div>
   </main>
 </Layout>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap');
+<style is:global>
+  /* Keep this page readable even if shared theme CSS fails to load. */
+  body:has(.kapitel-landing) {
+    margin: 0;
+    background: #ebe6dc;
+  }
 
   .kapitel-landing {
-    font-family: 'Source Sans 3', system-ui, sans-serif;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    color: #1c1a16;
     background:
       radial-gradient(1200px 600px at 10% -10%, rgba(46, 102, 105, 0.18), transparent 55%),
       radial-gradient(900px 500px at 100% 0%, rgba(201, 162, 39, 0.12), transparent 50%),
       linear-gradient(180deg, #f4f1ea 0%, #ebe6dc 100%);
-    color: #1c1a16;
-  }
-
-  :global(.dark) .kapitel-landing {
-    background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(126, 182, 184, 0.16), transparent 55%),
-      radial-gradient(900px 500px at 100% 0%, rgba(201, 162, 39, 0.08), transparent 50%),
-      linear-gradient(180deg, #12141a 0%, #0d0f14 100%);
-    color: #f0ece4;
   }
 
   .kapitel-glow {
     position: absolute;
-    inset: auto -20% -30% auto;
+    right: -20%;
+    bottom: -30%;
     width: min(70vw, 520px);
     height: min(70vw, 520px);
     border-radius: 50%;
@@ -88,28 +82,94 @@ const supportEmail = 'kapitel@mwilzin.de';
     pointer-events: none;
   }
 
-  .kapitel-eyebrow {
-    color: #2e6669;
+  .kapitel-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
   }
 
-  :global(.dark) .kapitel-eyebrow {
-    color: #7eb6b8;
+  .kapitel-eyebrow {
+    margin: 0 0 1.1rem;
+    color: #2e6669;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
 
   .kapitel-brand {
-    font-family: Fraunces, Georgia, serif;
+    margin: 0 0 1rem;
+    font-family: Fraunces, Georgia, 'Times New Roman', serif;
+    font-size: clamp(3rem, 10vw, 4.5rem);
+    font-weight: 700;
     letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+
+  .kapitel-lead {
+    margin: 0 0 2.25rem;
+    max-width: 36rem;
+    color: #4a463e;
+    font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+    line-height: 1.55;
+  }
+
+  .kapitel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .kapitel-cta,
+  .kapitel-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 1.2;
   }
 
   .kapitel-cta {
+    color: #fff;
     background: #2e6669;
   }
 
-  .kapitel-link {
-    color: #2e6669;
+  .kapitel-cta:hover {
+    opacity: 0.92;
   }
 
-  :global(.dark) .kapitel-link {
-    color: #7eb6b8;
+  .kapitel-secondary {
+    color: #1c1a16;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(28, 26, 22, 0.14);
+  }
+
+  .kapitel-secondary:hover {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .kapitel-meta {
+    margin: 1.75rem 0 0;
+    color: #6b655a;
+    font-size: 0.95rem;
+  }
+
+  .kapitel-meta a {
+    color: #2e6669;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
 </style>
