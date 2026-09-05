@@ -1,8 +1,3 @@
----
-title: 'Datenschutzrichtlinie – Kapitel'
-layout: '~/layouts/MarkdownLayout.astro'
----
-
 **Stand:** 5. September 2026  
 **Verantwortlich:** Marc-Aurel Wilzin  
 **Kontakt:** [kapitel@mwilzin.de](mailto:kapitel@mwilzin.de)  

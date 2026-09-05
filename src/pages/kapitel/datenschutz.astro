@@ -1,0 +1,24 @@
+---
+import KapitelPage from '~/components/kapitel/KapitelPage.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { Content as DatenschutzContent } from '~/data/kapitel-datenschutz.md';
+---
+
+<KapitelPage
+  title="Datenschutz – Kapitel"
+  description="Datenschutzrichtlinie für die Study-App Kapitel."
+>
+  <nav class="kapitel-nav">
+    <a href={getPermalink('/kapitel')}>← Zurück zu Kapitel</a>
+  </nav>
+
+  <p class="kapitel-eyebrow">Kapitel</p>
+  <h1 class="kapitel-brand kapitel-brand--doc">Datenschutz</h1>
+  <p class="kapitel-lead">
+    Wie Kapitel mit deinen Daten umgeht — transparent, ohne Tracking und ohne Entwickler-Backend.
+  </p>
+
+  <div class="kapitel-prose">
+    <DatenschutzContent />
+  </div>
+</KapitelPage>

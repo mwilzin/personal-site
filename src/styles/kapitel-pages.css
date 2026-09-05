@@ -1,0 +1,235 @@
+/* Shared look for Kapitel landing / legal pages */
+
+body:has(.kapitel-page) {
+  margin: 0;
+  background: #ebe6dc;
+}
+
+.kapitel-page {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  color: #1c1a16;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(46, 102, 105, 0.18), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(201, 162, 39, 0.12), transparent 50%),
+    linear-gradient(180deg, #f4f1ea 0%, #ebe6dc 100%);
+}
+
+.kapitel-glow {
+  position: absolute;
+  right: -20%;
+  bottom: -30%;
+  width: min(70vw, 520px);
+  height: min(70vw, 520px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 102, 105, 0.22), transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.kapitel-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+}
+
+.kapitel-inner--center {
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.kapitel-nav {
+  margin-bottom: 2.5rem;
+}
+
+.kapitel-nav a {
+  color: #2e6669;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kapitel-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.kapitel-eyebrow {
+  margin: 0 0 1.1rem;
+  color: #2e6669;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.kapitel-brand {
+  margin: 0 0 1rem;
+  font-family: Fraunces, Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.kapitel-brand--doc {
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  margin-bottom: 0.75rem;
+}
+
+.kapitel-lead {
+  margin: 0 0 2.25rem;
+  max-width: 36rem;
+  color: #4a463e;
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.kapitel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.kapitel-cta,
+.kapitel-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.kapitel-cta {
+  color: #fff;
+  background: #2e6669;
+}
+
+.kapitel-cta:hover {
+  opacity: 0.92;
+}
+
+.kapitel-secondary {
+  color: #1c1a16;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(28, 26, 22, 0.14);
+}
+
+.kapitel-secondary:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.kapitel-meta {
+  margin: 1.75rem 0 0;
+  color: #6b655a;
+  font-size: 0.95rem;
+}
+
+.kapitel-meta a {
+  color: #2e6669;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.kapitel-prose {
+  margin-top: 0.5rem;
+  color: #3f3b34;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.kapitel-prose > *:first-child {
+  margin-top: 0;
+}
+
+.kapitel-prose h2 {
+  margin: 2.4rem 0 0.85rem;
+  font-family: Fraunces, Georgia, 'Times New Roman', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1c1a16;
+}
+
+.kapitel-prose h3 {
+  margin: 1.6rem 0 0.55rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1c1a16;
+}
+
+.kapitel-prose p,
+.kapitel-prose ul,
+.kapitel-prose ol,
+.kapitel-prose table {
+  margin: 0 0 1rem;
+}
+
+.kapitel-prose ul,
+.kapitel-prose ol {
+  padding-left: 1.2rem;
+}
+
+.kapitel-prose li {
+  margin: 0.35rem 0;
+}
+
+.kapitel-prose a {
+  color: #2e6669;
+  font-weight: 600;
+}
+
+.kapitel-prose strong {
+  color: #1c1a16;
+}
+
+.kapitel-prose hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid rgba(28, 26, 22, 0.12);
+}
+
+.kapitel-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(28, 26, 22, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.kapitel-prose th,
+.kapitel-prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid rgba(28, 26, 22, 0.08);
+}
+
+.kapitel-prose th {
+  background: rgba(46, 102, 105, 0.1);
+  font-weight: 700;
+}
+
+.kapitel-prose tr:last-child td {
+  border-bottom: none;
+}
+
+.kapitel-prose em {
+  color: #6b655a;
+}
