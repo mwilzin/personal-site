@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BentoLayout from '~/layouts/BentoLayout.astro';
+import NowPlaying from '~/components/NowPlaying.astro';
 import { getPermalink } from '~/utils/permalinks';
 import portrait from '~/assets/images/profile-cutout.png';
 import kapitelIcon from '~/assets/images/brands/kapitel-icon.png';
@@ -28,6 +29,8 @@ const year = new Date().getFullYear();
   }}
 >
   <main class="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 p-4 md:p-6 lg:gap-6 lg:p-8">
+    <NowPlaying />
+
     <!-- Hero: intro + portrait in one tile -->
     <section class="grid grid-cols-1 gap-4 lg:gap-6">
       <div class="tile group relative overflow-hidden" data-tilt="3.5">
