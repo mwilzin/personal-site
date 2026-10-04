@@ -1,0 +1,103 @@
+---
+import '~/assets/styles/portfolio.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/baloo-2';
+
+import { I18N, SITE } from 'astrowind:config';
+
+import CommonMeta from '~/components/common/CommonMeta.astro';
+import Favicons from '~/components/Favicons.astro';
+import Metadata from '~/components/common/Metadata.astro';
+import NowPlaying from '~/components/NowPlaying.astro';
+
+import type { MetaData as MetaDataType } from '~/types';
+
+export interface Props {
+  metadata?: MetaDataType;
+}
+
+const { metadata = {} } = Astro.props;
+const { language, textDirection } = I18N;
+---
+
+<!doctype html>
+<html lang={language || 'de'} dir={textDirection}>
+  <head>
+    <CommonMeta />
+    <Favicons />
+    <Metadata
+      {...{
+        title: metadata.title ?? `${SITE?.name} — Mobile · Flutter · Apps`,
+        description:
+          metadata.description ??
+          'Informatik-Student und Mobile Developer. Apps mit Flutter & Swift — von Study-Tools bis Court-Booking.',
+        ignoreTitleTemplate: true,
+        ...metadata,
+      }}
+    />
+  </head>
+  <body class="min-h-dvh bg-page font-sans text-fg antialiased">
+    <NowPlaying />
+    <slot />
+
+    <script>
+      const fine = window.matchMedia('(pointer: fine)');
+      const motionOk = window.matchMedia('(prefers-reduced-motion: no-preference)');
+      const defaultMax = 7;
+      const ease = 0.13;
+
+      for (const el of document.querySelectorAll('[data-tilt]')) {
+        const max = parseFloat((el as HTMLElement).dataset.tilt || '') || defaultMax;
+        let rx = 0;
+        let ry = 0;
+        let tx = 0;
+        let ty = 0;
+        let hover = 0;
+        let targetHover = 0;
+        let raf = 0;
+
+        const tick = () => {
+          rx += (tx - rx) * ease;
+          ry += (ty - ry) * ease;
+          hover += (targetHover - hover) * ease;
+
+          if (
+            targetHover === 0 &&
+            hover < 0.01 &&
+            Math.abs(rx) < 0.03 &&
+            Math.abs(ry) < 0.03
+          ) {
+            (el as HTMLElement).style.transform = '';
+            raf = 0;
+            return;
+          }
+
+          (el as HTMLElement).style.transform =
+            `perspective(1000px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(${(-4 * hover).toFixed(2)}px) scale(${(1 + 0.015 * hover).toFixed(4)})`;
+          raf = requestAnimationFrame(tick);
+        };
+
+        el.addEventListener('pointermove', (event) => {
+          if (!fine.matches || !motionOk.matches) return;
+          const e = event as PointerEvent;
+          const rect = el.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width;
+          const py = (e.clientY - rect.top) / rect.height;
+          (el as HTMLElement).style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
+          (el as HTMLElement).style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
+          tx = (0.5 - py) * max;
+          ty = (px - 0.5) * max;
+          targetHover = 1;
+          if (!raf) raf = requestAnimationFrame(tick);
+        });
+
+        el.addEventListener('pointerleave', () => {
+          tx = 0;
+          ty = 0;
+          targetHover = 0;
+          if (!raf) raf = requestAnimationFrame(tick);
+        });
+      }
+    </script>
+  </body>
+</html>

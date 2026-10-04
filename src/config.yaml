@@ -10,26 +10,26 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Marc-Aurel Wilzin — Mobile · Flutter · Apps
+    template: '%s — Marc-Aurel Wilzin'
+  description: 'Informatik-Student und App-Entwickler. Flutter, Swift & Backend — von Kapitel über scannerbox. bis TVL Tennis.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: Marc-Aurel Wilzin
     images:
       - url: '~/assets/images/default.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@arthelokyo'
-    site: '@arthelokyo'
+    handle: ''
+    site: ''
     cardType: summary_large_image
 
 i18n:
-  language: en
+  language: de
   textDirection: ltr
 
 apps:

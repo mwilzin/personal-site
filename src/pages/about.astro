@@ -1,43 +1,156 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import Features from '~/components/widgets/Features.astro';
-import Content from '~/components/widgets/Content.astro';
-import Timeline from '~/components/ui/Timeline.astro';
+import BentoLayout from '~/layouts/BentoLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
 
-const metadata = {
-  title: 'Über mich | Marc-Aurel Wilzin',
-};
+const timeline = [
+  {
+    title: 'B.Sc. Informatik',
+    description:
+      'Eberhard Karls Universität Tübingen (seit Sept. 2024). MINT-Studienbotschafter der Mathematisch-Naturwissenschaftlichen Fakultät (seit 2025).',
+  },
+  {
+    title: 'Programmierung & Softwareentwicklung',
+    description:
+      'page one GmbH, Nürnberg (10/2021 – 09/2026): scannerbox.mobile (Swift → Flutter + Android), DATEV-Integrationen, CI/CD (TeamCity/Codemagic), RevenueCat, Sentry; interne Page-One-App (Flutter, Voice, CarPlay, Außendienst/Disposition).',
+  },
+  {
+    title: 'Praktikum iOS-Entwicklung',
+    description:
+      'EXARING AG / waipu.tv, München (April 2022): Open-Source-Lizenz-UI für iOS & tvOS, Scrum-Team.',
+  },
+  {
+    title: 'Abitur',
+    description: 'Theresien Gymnasium Ansbach, Note 2,3 (Juni 2024).',
+  },
+];
+
+const skills = [
+  { title: 'Flutter / Dart', level: 'Schwerpunkt' },
+  { title: 'Swift / SwiftUI / CarPlay', level: 'Praxis' },
+  { title: 'Node.js · TypeScript', level: 'Praxis' },
+  { title: 'Supabase · Firebase · SQL', level: 'Praxis' },
+  { title: 'CI/CD · Docker · Sentry', level: 'Praxis' },
+  { title: 'Englisch', level: 'C1' },
+];
+
+const projects = [
+  {
+    title: 'Kapitel',
+    description:
+      'Native Study-App für iPhone, iPad & Mac: Kurse, Fristen, Karteikarten, Fokus-Timer, Uni-Sync. getkapitel.app',
+    href: 'https://getkapitel.app',
+  },
+  {
+    title: 'TVL Tennis',
+    description:
+      'Vereins-App für TV Leutershausen: Platzbuchung, News, Kalender, Chats, Partner-Suche, BTV-Spielplan-Sync — Flutter (iOS/Android/Web) + Supabase. tennis-tvl.de',
+    href: 'https://tennis-tvl.de',
+  },
+  {
+    title: 'scannerbox. (page one)',
+    description:
+      'Produktive Belegerfassungs-App: Migration Swift → Flutter inkl. Android, DATEV-Schnittstellen, CI/CD, RevenueCat.',
+  },
+  {
+    title: 'Page One App (intern)',
+    description:
+      'Interne Flutter-App bei page one: Voice-Assistent, CarPlay, Kunden, Termine, Disposition und Maps — produktiv im Außendienst.',
+  },
+  {
+    title: 'KirchenANführer',
+    description:
+      'Interaktiver Guide für St. Gumbertus & St. Johannis (Ansbach): Solo-/Gruppentouren, Quiz-Typen, GPS & Indoor-Karten, Firebase — technischer Leiter im P-Seminar, Bayerischer P-Seminar-Preis.',
+  },
+  {
+    title: 'Ferienwohnungs-Verwaltung',
+    description: 'Smoobu-Webhooks → Nuki-Zugangscodes, Reinigungspläne — Node.js, Flutter, Supabase (seit 2024).',
+  },
+];
 ---
 
-<Layout metadata={metadata}>
-  <HeroText title="Über mich" subtitle="Mein Werdegang als Mobile Developer & Student" />
+<BentoLayout
+  metadata={{
+    title: 'Über mich — Marc-Aurel Wilzin',
+    description: 'Werdegang als App- und Softwareentwickler & Informatik-Student in Tübingen.',
+  }}
+>
+  <main class="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 p-4 md:p-6 lg:gap-6 lg:p-8">
+    <a href={getPermalink('/')} class="text-sm text-muted transition-colors hover:text-fg"> ← Zurück </a>
 
-  <Timeline
-    items={[
-      { title: 'Informatik-Studium', description: 'Bachelor of Science, Eberhard Karls Universität Tübingen (seit Sept. 2024)', icon: 'tabler:school' },
-      { title: 'Mobile Developer', description: 'page one GmbH, Nürnberg (seit Okt. 2021) – Architektur von Mobile Apps.', icon: 'tabler:briefcase' },
-      { title: 'iOS-Developer Intern', description: 'Exaring AG, München (April 2022) – UI-Entwicklung für waipu.tv.', icon: 'tabler:device-mobile' },
-      { title: 'Abitur', description: 'Theresien Gymnasium Ansbach (2024)', icon: 'tabler:certificate' },
-    ]}
-  />
+    <section class="grid grid-cols-1 gap-4 lg:grid-cols-6 lg:gap-6">
+      <div class="tile p-7 md:col-span-4 md:p-9">
+        <p class="text-xs font-semibold tracking-wider text-kapitel uppercase">Über mich</p>
+        <h1 class="font-display mt-2 text-4xl font-semibold md:text-5xl">
+          App- &amp; Softwareentwicklung<br />
+          <span class="text-accent-gradient">in der Praxis</span>
+        </h1>
+        <p class="mt-4 max-w-[60ch] text-muted">
+          Seit 2021 baue ich Apps, die live genutzt werden — bei page one (scannerbox., interne Page-One-App,
+          DATEV) und in eigenen Produkten wie Kapitel und TVL Tennis. Dazu kommen CI/CD, Schnittstellen und der
+          Betrieb der Infrastruktur.
+        </p>
+      </div>
 
-  <Features
-    title="Technische Skills"
-    items={[
-      { title: 'Dart / Flutter', description: 'Fortgeschritten', icon: 'tabler:brand-flutter' },
-      { title: 'Swift', description: 'Mittel', icon: 'tabler:brand-swift' },
-      { title: 'Git', description: 'Fortgeschritten', icon: 'tabler:brand-git' },
-      { title: 'Firebase / Supabase', description: 'Mittel', icon: 'tabler:database' },
-    ]}
-  />
+      <div class="tile p-7 md:col-span-2 md:p-9">
+        <h2 class="font-display text-2xl font-semibold">Skills</h2>
+        <ul class="mt-4 space-y-3">
+          {
+            skills.map((skill) => (
+              <li class="flex items-baseline justify-between gap-3 text-sm">
+                <span class="text-fg">{skill.title}</span>
+                <span class="text-muted-strong">{skill.level}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
 
-  <Content
-    title="Projekte & Engagement"
-    items={[
-      { title: 'TVL Tennis App', description: 'Custom Court Booking System (Flutter/Node.js).' },
-      { title: 'KirchenANführer', description: 'Gewinner des Bayerischen P-Seminar Preises.' },
-      { title: 'Ehrenamt', description: 'Engagiert in Holocaust-Gedenkveranstaltungen.' },
-    ]}
-  />
-</Layout>
+    <section class="tile p-7 md:p-9">
+      <h2 class="font-display text-2xl font-semibold">Timeline</h2>
+      <ol class="mt-6 space-y-5">
+        {
+          timeline.map((item) => (
+            <li class="grid gap-1 border-l border-muted-strong pl-4">
+              <h3 class="font-medium text-fg-strong">{item.title}</h3>
+              <p class="text-sm text-muted">{item.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="tile p-7 md:p-9">
+      <h2 class="font-display text-2xl font-semibold">Projekte & Engagement</h2>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        {
+          projects.map((project) => (
+            <div>
+              <h3 class="font-medium text-fg-strong">
+                {project.href ? (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener"
+                    class="underline decoration-muted-strong underline-offset-4 transition-colors hover:text-fg"
+                  >
+                    {project.title}
+                  </a>
+                ) : (
+                  project.title
+                )}
+              </h3>
+              <p class="mt-1 text-sm text-muted">{project.description}</p>
+            </div>
+          ))
+        }
+        <div>
+          <h3 class="font-medium text-fg-strong">Engagement</h3>
+          <p class="mt-1 text-sm text-muted">
+            MINT-Studienbotschafter Uni Tübingen · Redebeiträge am Holocaust-Gedenktag Ansbach (2023–2025).
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</BentoLayout>

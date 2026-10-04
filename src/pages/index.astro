@@ -1,45 +1,475 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Features from '~/components/widgets/Features.astro';
-import Content from '~/components/widgets/Content.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import { Image } from 'astro:assets';
+import BentoLayout from '~/layouts/BentoLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+import portrait from '~/assets/images/profile-cutout.png';
+import kapitelIcon from '~/assets/images/brands/kapitel-icon.png';
+import tvlLogo from '~/assets/images/brands/tvl-logo.png';
+import tvlCourt from '~/assets/images/brands/tvl-court.png';
+import scannerboxIcon from '~/assets/images/brands/scannerbox-icon.png';
+import pageoneShotChat from '~/assets/images/brands/pageone-screenshot-chat.jpg';
+import scannerboxShotBelege from '~/assets/images/brands/scannerbox-screenshot-belege.jpg';
+import kirchenIcon from '~/assets/images/brands/kirchenanfuehrer-icon.png';
+import kirchenPreview from '~/assets/images/brands/kirchenanfuehrer-preview.jpg';
 
-const metadata = {
-  title: 'Marc-Aurel Wilzin | Mobile Developer',
-};
+const email = 'hi@mwilzin.de';
+const github = 'https://github.com/mwilzin';
+const linkedin = 'https://linkedin.com/in/mwilzin';
+const kapitelUrl = 'https://getkapitel.app';
+const tvlUrl = 'https://tennis-tvl.de';
+const year = new Date().getFullYear();
 ---
 
-<Layout metadata={metadata}>
-  <Hero
-    tagline="Computer Science Student & Mobile Developer"
-    title="Hallo, ich bin Marc-Aurel"
-    subtitle="Ich entwickle leidenschaftlich performante Mobile Apps mit Flutter und Swift."
-    actions={[{ text: 'Mehr über mich', href: '#about' }]}
-  />
+<BentoLayout
+  metadata={{
+    title: 'Marc-Aurel Wilzin — Mobile · Flutter · Apps',
+    description:
+      'Informatik-Student und App-Entwickler. Flutter, Swift & Backend — von Kapitel über page one bis TVL Tennis.',
+  }}
+>
+  <main class="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 p-4 md:p-6 lg:gap-6 lg:p-8">
+    <!-- Hero: intro + portrait in one tile -->
+    <section class="grid grid-cols-1 gap-4 lg:gap-6">
+      <div class="tile group relative overflow-hidden" data-tilt="3.5">
+        <div
+          class="grid items-end md:grid-cols-[minmax(0,1.35fr)_minmax(12rem,0.85fr)] lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,0.9fr)]"
+        >
+          <div class="flex flex-col justify-center gap-5 p-7 pt-9 pb-7 md:p-10 md:pt-12 md:pr-3 md:pb-10">
+            <div class="flex items-start justify-between gap-4">
+              <h1 class="font-display min-w-0 flex-1 text-5xl leading-[1.02] font-semibold md:text-6xl">
+                Hey, ich bin<br />
+                <span class="text-accent-gradient">Marc!</span>
+              </h1>
+              <!-- Small portrait beside the headline on narrow screens -->
+              <Image
+                src={portrait}
+                alt="Porträt von Marc-Aurel Wilzin"
+                widths={[160, 240]}
+                sizes="6.5rem"
+                loading="eager"
+                fetchpriority="high"
+                class="portrait-cutout -mr-1 w-[5.75rem] shrink-0 self-start drop-shadow-lg sm:w-28 md:hidden"
+              />
+            </div>
+            <p class="max-w-[52ch] text-muted">
+              Ich studiere Informatik an der Uni Tübingen und entwickle seit 2021 mobile Apps, die produktiv im Einsatz
+              sind. Schwerpunkte: Flutter, native Apple-Komponenten, Schnittstellen und die Infrastruktur dahinter — von
+              CI/CD bis Server.
+            </p>
+            <p class="max-w-[52ch] font-medium text-fg">
+              Meine Lieblingsthemen:
+              <span class="text-accent-gradient">Cross-Platform Apps &amp; produktive Software!</span>
+            </p>
+          </div>
 
-  <Features
-    id="features"
-    title="Was ich tue"
-    items={[
-      { title: 'Mobile Development', description: 'Cross-platform mit Flutter, native Apps mit Swift.', icon: 'tabler:brand-flutter' },
-      { title: 'Backend Integration', description: 'Firebase, Supabase & REST API Integration.', icon: 'tabler:database' },
-      { title: 'Software Engineering', description: 'Strukturiertes Vorgehen, agile Methodik, Software-Architektur.', icon: 'tabler:code' },
-    ]}
-  />
+          <!-- Large portrait column from md up -->
+          <div class="relative hidden self-stretch pt-10 md:block">
+            <Image
+              src={portrait}
+              alt="Porträt von Marc-Aurel Wilzin"
+              widths={[360, 520, 720]}
+              sizes="(min-width: 768px) 20rem, 0px"
+              loading="eager"
+              fetchpriority="high"
+              class="portrait-cutout absolute bottom-0 left-1/2 h-[calc(100%-2.5rem)] w-auto max-w-[92%] -translate-x-1/2 object-contain object-bottom drop-shadow-xl"
+            />
+          </div>
+        </div>
+      </div>
 
-  <Content
-    id="about"
-    title="Über mich"
-    subtitle="Informatik-Student an der Uni Tübingen & Mobile Developer bei page one."
-    items={[
-      { title: 'Erfahrung', description: 'Von nativen iOS-Apps zu komplexen Flutter-Lösungen.' },
-      { title: 'Projekte', description: 'Entwicklung der TVL Tennis App und preisgekrönte Kirchen-Apps.' },
-    ]}
-  />
+      <!-- Flagship: Kapitel -->
+      <div class="tile group relative overflow-hidden p-7 md:p-9" data-tilt>
+        <div
+          class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-kapitel/15 via-transparent to-kapitel/25"
+        >
+        </div>
+        <div class="relative flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+          <Image
+            src={kapitelIcon}
+            alt="Kapitel App-Icon"
+            width={72}
+            height={72}
+            class="size-[4.5rem] shrink-0 rounded-[1.15rem] shadow-lg ring-1 ring-ring-soft"
+          />
+          <div class="flex-1">
+            <p class="text-xs font-semibold tracking-wider text-kapitel uppercase">Study-App</p>
+            <h2 class="font-display mt-2 text-3xl font-semibold">Kapitel</h2>
+            <p class="mt-2 max-w-[52ch] text-muted">
+              Studium-Cockpit für iPhone, iPad &amp; Mac: Kurse, Fristen, Karteikarten, Formelnotizen, Fokus-Timer und
+              Uni-Sync — nativ und datensparsam.
+            </p>
+          </div>
+          <a
+            href={kapitelUrl}
+            target="_blank"
+            rel="noopener"
+            class="btn-kapitel inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-semibold shadow-sm transition-colors"
+          >
+            Zu Kapitel
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-4"
+            >
+              <path d="M7 17 17 7M9 7h8v8"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <CallToAction
-    title="Lust auf Zusammenarbeit?"
-    actions={[{ text: 'Schreib mir eine E-Mail', href: 'mailto:marc-aurel-w@online.de' }]}
-  />
-</Layout>
+    <!-- Projects -->
+    <div class="grid gap-3 md:gap-4 lg:gap-6">
+      <h2
+        class="font-display px-1 text-sm font-semibold tracking-[0.18em] text-muted uppercase md:hidden"
+      >
+        Projekte
+      </h2>
+      <section class="grid grid-cols-1 gap-4 md:grid-cols-6 lg:gap-6">
+      <a
+        href={tvlUrl}
+        target="_blank"
+        rel="noopener"
+        class="tile group block overflow-hidden p-6 md:col-span-2 md:p-7"
+        data-tilt
+      >
+        <div class="flex h-full flex-col gap-4">
+          <div class="flex items-start justify-between">
+            <span class="grid size-11 place-items-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/10">
+              <Image src={tvlLogo} alt="TVL Tennis Logo" width={40} height={40} class="size-9 object-contain" />
+            </span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 text-muted-strong transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-muted"
+            >
+              <path d="M7 17 17 7M9 7h8v8"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-display text-2xl font-semibold">TVL Tennis</h2>
+            <p class="mt-1 text-[0.9375rem] text-muted">
+              Vereins-App für den TV Leutershausen: Platzbuchung, News, Kalender, Chats, Partner-Suche und BTV-
+              Spielplan — iOS, Android und Web.
+            </p>
+            <p class="mt-3 text-xs font-medium text-tvl">Flutter · Supabase · tennis-tvl.de</p>
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none mx-auto -mb-9 mt-auto w-full max-w-60 pt-1 translate-y-1 transition-transform duration-300 group-hover:translate-y-0 md:-mb-10"
+          >
+            <div class="overflow-hidden rounded-t-xl bg-mock shadow-lg ring-1 ring-ring-soft">
+              <div class="relative aspect-[4/3] overflow-hidden bg-[#111]">
+                <Image
+                  src={tvlCourt}
+                  alt=""
+                  widths={[280, 420]}
+                  sizes="15rem"
+                  class="h-full w-full object-cover object-top opacity-90"
+                />
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                  <span class="rounded-md bg-tvl px-2 py-0.5 text-[0.65rem] font-semibold text-white">Platz 1</span>
+                  <span class="text-[0.65rem] font-medium text-white/90">frei · heute</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a
+        href={getPermalink('/about')}
+        class="tile group block overflow-hidden p-6 md:col-span-2 md:p-7"
+        data-tilt
+      >
+        <div class="flex h-full flex-col gap-4">
+          <div class="flex items-start justify-between">
+            <span class="grid size-11 place-items-center overflow-hidden rounded-xl bg-black shadow-sm ring-1 ring-white/10">
+              <Image
+                src={scannerboxIcon}
+                alt="scannerbox. App-Icon"
+                width={44}
+                height={44}
+                class="size-11 object-cover"
+              />
+            </span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 text-muted-strong transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-muted"
+            >
+              <path d="M7 17 17 7M9 7h8v8"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-display text-2xl font-semibold">page one</h2>
+            <p class="mt-1 text-[0.9375rem] text-muted">
+              scannerbox.mobile (Swift → Flutter, DATEV, CI/CD) und die interne Page-One-App mit Voice &amp; CarPlay —
+              produktiv bei page one.
+            </p>
+            <p class="mt-3 text-xs font-medium text-scannerbox">page one GmbH · 10/2021 – 09/2026</p>
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none relative -mx-6 -mb-6 mt-auto h-44 overflow-hidden md:-mx-7 md:-mb-7 md:h-48"
+          >
+            <!-- App Store shots as a fan — full card width, flush to the bottom -->
+            <div class="absolute inset-x-0 bottom-0 flex items-end justify-center">
+              <Image
+                src={pageoneShotChat}
+                alt=""
+                widths={[220, 300]}
+                sizes="9rem"
+                class="relative z-0 mb-[-48%] w-[44%] max-w-[9rem] origin-bottom translate-x-5 translate-y-2 -rotate-[7deg] rounded-md shadow-2xl ring-1 ring-white/15 transition-transform duration-300 ease-out group-hover:translate-y-0"
+              />
+              <Image
+                src={scannerboxShotBelege}
+                alt=""
+                widths={[220, 300]}
+                sizes="9rem"
+                class="relative z-10 -ml-7 mb-[-46%] w-[46%] max-w-[9.25rem] origin-bottom -translate-x-5 translate-y-2 rotate-[6deg] rounded-md shadow-2xl ring-1 ring-white/20 transition-transform duration-300 ease-out group-hover:translate-y-0"
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a
+        href={getPermalink('/about')}
+        class="tile group block overflow-hidden p-6 md:col-span-2 md:p-7"
+        data-tilt
+      >
+        <div class="flex h-full flex-col gap-4">
+          <div class="flex items-start justify-between">
+            <span class="grid size-11 place-items-center overflow-hidden rounded-xl bg-kirchen-cream shadow-sm ring-1 ring-kirchen/25">
+              <Image
+                src={kirchenIcon}
+                alt="KirchenANführer App-Icon"
+                widths={[88, 176]}
+                sizes="2.75rem"
+                class="size-11 object-cover"
+              />
+            </span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 text-muted-strong transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-muted"
+            >
+              <path d="M7 17 17 7M9 7h8v8"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-display text-2xl font-semibold">KirchenANführer</h2>
+            <p class="mt-1 text-[0.9375rem] text-muted">
+              Interaktiver Kirchenführer für St.&nbsp;Gumbertus &amp; St.&nbsp;Johannis in Ansbach — Solo- und
+              Gruppentouren mit Quiz, Indoor-Navigation und Firebase. Bayerischer P-Seminar-Preis.
+            </p>
+            <p class="mt-3 text-xs font-medium text-kirchen">Flutter · Firebase · 2023–2024</p>
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none mx-auto -mb-9 mt-auto w-full max-w-60 pt-1 translate-y-1 transition-transform duration-300 group-hover:translate-y-0 md:-mb-10"
+          >
+            <div
+              class="-rotate-2 overflow-hidden rounded-t-xl bg-kirchen-cream shadow-lg ring-1 ring-kirchen/30 transition-transform duration-300 group-hover:-rotate-1"
+            >
+              <div class="relative aspect-[4/3]">
+                <Image
+                  src={kirchenPreview}
+                  alt=""
+                  widths={[280, 420]}
+                  sizes="15rem"
+                  class="h-full w-full object-cover"
+                />
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#7895b2]/80 to-transparent"></div>
+                <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                  <Image
+                    src={kirchenIcon}
+                    alt=""
+                    widths={[56, 112]}
+                    sizes="1.75rem"
+                    class="size-7 rounded-md shadow"
+                  />
+                  <span class="text-[0.7rem] font-semibold text-white">St. Johannis · Tour starten</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      </section>
+    </div>
+
+    <!-- GitHub / Contact -->
+    <div class="grid gap-3 md:gap-4 lg:gap-6">
+      <h2
+        class="font-display px-1 text-sm font-semibold tracking-[0.18em] text-muted uppercase md:hidden"
+      >
+        Mehr
+      </h2>
+      <section class="grid grid-cols-1 gap-4 md:grid-cols-6 lg:gap-6">
+      <a
+        href={github}
+        target="_blank"
+        rel="noopener"
+        class="tile group block overflow-hidden p-6 md:col-span-3 md:p-7"
+        data-tilt
+      >
+        <div class="flex h-full flex-col gap-5">
+          <div class="flex items-start justify-between">
+            <span class="grid size-11 place-items-center rounded-xl bg-neutral-500/10 text-fg [&_svg]:size-5">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+            </span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 text-muted-strong transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-muted"
+            >
+              <path d="M7 17 17 7M9 7h8v8"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-display text-2xl font-semibold">GitHub</h2>
+            <p class="mt-1 text-[0.9375rem] text-muted">
+              Code, Experimente und Open-Source-Beiträge rund um Apps, Backend und Tools.
+            </p>
+            <p class="mt-3 text-xs font-medium text-muted">github.com/mwilzin</p>
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none mx-auto -mb-9 mt-auto w-full max-w-60 translate-y-2 transition-transform duration-300 group-hover:translate-y-0 md:-mb-10"
+          >
+            <div class="flex items-center justify-center gap-4 rounded-t-xl bg-mock p-4 shadow-lg ring-1 ring-ring-soft">
+              <div
+                class="size-16 shrink-0 rounded-full bg-[conic-gradient(from_0deg,var(--color-amber-400),var(--color-lime-400),var(--color-emerald-400),var(--color-teal-400),var(--color-sky-400),var(--color-indigo-400),var(--color-violet-400),var(--color-fuchsia-400),var(--color-rose-400),var(--color-orange-400),var(--color-amber-400))] p-1.5"
+              >
+                <div class="size-full rounded-full bg-mock"></div>
+              </div>
+              <div class="w-full space-y-2">
+                <div class="h-2 w-full rounded-full bg-mock-bar"></div>
+                <div class="h-2 w-2/3 rounded-full bg-mock-bar-soft"></div>
+                <div class="h-2 w-4/5 rounded-full bg-mock-bar-soft"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Contact: div tile — nested <a> would split the card -->
+      <div class="tile group overflow-hidden p-6 md:col-span-3 md:p-7" data-tilt>
+        <div class="flex h-full flex-col gap-5">
+          <div class="flex items-start justify-between">
+            <span class="grid size-11 place-items-center rounded-xl bg-sky-500/10 text-sky-400 [&_svg]:size-5">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"
+                ></path>
+                <path
+                  d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85l-7.129 1.901a2.5 2.5 0 0 1-1.242 0L0 6.85v5.65z"
+                ></path>
+              </svg>
+            </span>
+          </div>
+          <div>
+            <h2 class="font-display text-2xl font-semibold">Kontakt</h2>
+            <p class="mt-1 text-[0.9375rem] text-muted">
+              Für Projekte, Praktika und Zusammenarbeit.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <a
+                href={`mailto:${email}`}
+                class="inline-flex items-center gap-2 rounded-xl bg-sky-500/15 px-4 py-2.5 text-sm font-semibold text-sky-400 transition-colors hover:bg-sky-500/25"
+              >
+                {email}
+              </a>
+              <a
+                href={linkedin}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 rounded-xl bg-mock px-4 py-2.5 text-sm font-semibold text-fg ring-1 ring-ring-soft transition-colors hover:bg-mock-bar-soft"
+              >
+                LinkedIn
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="size-3.5"
+                >
+                  <path d="M7 17 17 7M9 7h8v8"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none mx-auto -mb-9 mt-auto w-full max-w-60 translate-y-2 transition-transform duration-300 group-hover:translate-y-0 md:-mb-10"
+          >
+            <div class="flex items-center gap-3 rounded-t-xl bg-mock p-4 shadow-lg ring-1 ring-ring-soft">
+              <div
+                class="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-lime-500 to-emerald-600 font-display text-sm font-bold text-white"
+              >
+                M
+              </div>
+              <div class="w-full space-y-2">
+                <div class="h-2 w-1/2 rounded-full bg-mock-bar"></div>
+                <div class="h-2 w-3/4 rounded-full bg-sky-400/40"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    </div>
+
+    <footer class="py-3 text-center text-sm text-muted">
+      © {year} · Marc-Aurel Wilzin ·
+      <a
+        href={getPermalink('/impressum')}
+        class="underline decoration-muted-strong underline-offset-4 transition-colors hover:text-fg"
+      >
+        Impressum
+      </a>
+      ·
+      <a
+        href={kapitelUrl}
+        target="_blank"
+        rel="noopener"
+        class="underline decoration-muted-strong underline-offset-4 transition-colors hover:text-fg"
+      >
+        Kapitel
+      </a>
+    </footer>
+  </main>
+</BentoLayout>

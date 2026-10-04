@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Baloo 2 Variable', 'Baloo 2', ui-rounded, system-ui, sans-serif;
+
+  --color-page: var(--aw-page);
+  --color-fg: var(--aw-fg);
+  --color-fg-strong: var(--aw-fg-strong);
+  --color-muted: var(--aw-muted);
+  --color-muted-strong: var(--aw-muted-strong);
+  --color-mock: var(--aw-mock);
+  --color-mock-bar: var(--aw-mock-bar);
+  --color-mock-bar-soft: var(--aw-mock-bar-soft);
+  --color-ring-soft: var(--aw-ring-soft);
+
+  --color-kapitel: #227077;
+  --color-kapitel-strong: #2d939c;
+  --color-kapitel-deep: #1a5c61;
+  --color-tvl: #b71c1c;
+  --color-scannerbox: #c6e000;
+  --color-kirchen: #7895b2;
+  --color-kirchen-cream: #f5efe6;
+}
+
+:root {
+  color-scheme: light;
+  --aw-page: oklch(97% 0 none);
+  --aw-fg: oklch(26.9% 0 none);
+  --aw-fg-strong: oklch(14.5% 0 none);
+  --aw-muted: oklch(45% 0 none);
+  --aw-muted-strong: oklch(37.1% 0 none);
+  --aw-mock: oklch(94% 0 none);
+  --aw-mock-bar: oklch(82% 0 none);
+  --aw-mock-bar-soft: oklch(88% 0 none);
+  --aw-ring-soft: color-mix(in oklab, oklch(55.6% 0 none) 35%, transparent);
+  --aw-tile-from: oklch(100% 0 none);
+  --aw-tile-to: oklch(96.5% 0 none);
+  --aw-tile-border: color-mix(in oklab, oklch(70.8% 0 none) 45%, transparent);
+  --aw-tile-border-hover: color-mix(in oklab, oklch(55.6% 0 none) 55%, transparent);
+  --aw-tile-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+  --aw-tile-shadow-hover:
+    0 18px 36px -16px rgb(0 0 0 / 0.14),
+    0 6px 12px -6px rgb(0 0 0 / 0.08);
+  --aw-accent-from: var(--color-lime-600);
+  --aw-accent-to: var(--color-emerald-600);
+  --aw-cta-bg: var(--color-kapitel-deep);
+  --aw-cta-bg-hover: var(--color-kapitel);
+  --aw-cta-text: oklch(100% 0 none);
+  --aw-selection-fg: oklch(97% 0 none);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --aw-page: oklch(14.5% 0 none);
+    --aw-fg: oklch(92.2% 0 none);
+    --aw-fg-strong: oklch(97% 0 none);
+    --aw-muted: oklch(70.8% 0 none);
+    --aw-muted-strong: oklch(55.6% 0 none);
+    --aw-mock: oklch(26.9% 0 none);
+    --aw-mock-bar: oklch(43.9% 0 none);
+    --aw-mock-bar-soft: oklch(37.1% 0 none);
+    --aw-ring-soft: color-mix(in oklab, oklch(43.9% 0 none) 50%, transparent);
+    --aw-tile-from: oklch(26.9% 0 none);
+    --aw-tile-to: oklch(20.5% 0 none);
+    --aw-tile-border: color-mix(in oklab, oklch(37.1% 0 none) 70%, transparent);
+    --aw-tile-border-hover: color-mix(in oklab, oklch(43.9% 0 none) 80%, transparent);
+    --aw-tile-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+    --aw-tile-shadow-hover:
+      0 18px 36px -12px rgb(0 0 0 / 0.55),
+      0 6px 12px -6px rgb(0 0 0 / 0.35);
+    --aw-accent-from: var(--color-lime-300);
+    --aw-accent-to: var(--color-emerald-400);
+    --aw-cta-bg: var(--color-kapitel);
+    --aw-cta-bg-hover: var(--color-kapitel-strong);
+    --aw-cta-text: oklch(20.5% 0 none);
+    --aw-selection-fg: oklch(20.5% 0 none);
+  }
+}
+
+@layer base {
+  ::selection {
+    background-color: color-mix(in oklab, var(--aw-accent-from) 55%, transparent);
+    color: var(--aw-selection-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-emerald-500);
+    outline-offset: 2px;
+  }
+
+  body {
+    background-color: var(--aw-page);
+    color: var(--aw-fg);
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility tile {
+  border-radius: var(--radius-2xl);
+  background-image: linear-gradient(to bottom right, var(--aw-tile-from), var(--aw-tile-to));
+  border: 1px solid var(--aw-tile-border);
+  position: relative;
+  box-shadow: var(--aw-tile-shadow);
+  will-change: transform;
+  transition:
+    box-shadow 0.25s,
+    border-color 0.25s;
+}
+
+.tile:hover {
+  border-color: var(--aw-tile-border-hover);
+  box-shadow: var(--aw-tile-shadow-hover);
+}
+
+@utility text-accent-gradient {
+  background-image: linear-gradient(to right, var(--aw-accent-from), var(--aw-accent-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility btn-kapitel {
+  background-color: var(--aw-cta-bg);
+  color: var(--aw-cta-text);
+}
+
+.btn-kapitel:hover {
+  background-color: var(--aw-cta-bg-hover);
+}
+
+/* Soften the hard shoulder crop so the cutout blends into the shared hero tile */
+.portrait-cutout {
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}

@@ -1,0 +1,480 @@
+---
+const profileUrl = 'https://www.last.fm/user/mwilzin';
+const apiKey = import.meta.env.PUBLIC_LASTFM_API_KEY ?? '';
+---
+
+<div
+  class="np-root pointer-events-none fixed z-50"
+  data-now-playing
+  data-api-key={apiKey}
+  data-user="mwilzin"
+  data-profile={profileUrl}
+  hidden
+>
+  <!-- Wide: cover circle → expands on hover -->
+  <a
+    href={profileUrl}
+    target="_blank"
+    rel="noopener"
+    class="np-wide pointer-events-auto"
+    aria-label="Last.fm — jetzt hören"
+  >
+    <img data-np-art alt="" width="112" height="112" class="np-wide-art" />
+    <span class="np-wide-meta">
+      <span data-np-label class="np-wide-label"></span>
+      <span data-np-title class="np-wide-title"></span>
+      <span data-np-artist class="np-wide-artist"></span>
+    </span>
+    <span data-np-eq aria-hidden="true" class="np-eq np-wide-eq">
+      <span class="np-eq-bar"></span>
+      <span class="np-eq-bar"></span>
+      <span class="np-eq-bar"></span>
+    </span>
+  </a>
+
+  <!-- Narrow: Dynamic Island -->
+  <a
+    href={profileUrl}
+    target="_blank"
+    rel="noopener"
+    class="np-island pointer-events-auto"
+    data-np-island
+    aria-label="Last.fm — jetzt hören"
+  >
+    <img data-np-art-sm alt="" width="40" height="40" class="np-island-art" />
+    <span class="np-island-meta">
+      <span data-np-title-sm class="np-island-title"></span>
+      <span data-np-artist-sm class="np-island-artist"></span>
+    </span>
+    <span data-np-eq-sm aria-hidden="true" class="np-eq np-island-eq">
+      <span class="np-eq-bar"></span>
+      <span class="np-eq-bar"></span>
+      <span class="np-eq-bar"></span>
+      <span class="np-eq-bar"></span>
+      <span class="np-eq-bar"></span>
+    </span>
+  </a>
+</div>
+
+<style>
+  .np-root {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .np-root[data-ready='true'] {
+    opacity: 1;
+  }
+
+  /* —— Wide / circle —— */
+  .np-wide {
+    display: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    align-items: center;
+    gap: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--aw-tile-from) 92%, black);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.12),
+      0 10px 28px -12px rgb(0 0 0 / 0.45);
+    outline: 1px solid var(--aw-tile-border);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      gap 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .np-wide-art {
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 9999px;
+    transition:
+      width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .np-wide-meta {
+    display: grid;
+    min-width: 0;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    transition:
+      opacity 0.2s ease,
+      max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .np-wide-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #d51007;
+    white-space: nowrap;
+  }
+
+  .np-wide-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--aw-fg-strong);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12rem;
+  }
+
+  .np-wide-artist {
+    font-size: 0.75rem;
+    color: var(--aw-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12rem;
+  }
+
+  .np-wide-eq {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    margin-right: 0.15rem;
+    transition:
+      opacity 0.2s ease,
+      width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .np-wide:hover,
+  .np-wide:focus-visible {
+    width: 17.5rem;
+    height: 3.75rem;
+    gap: 0.75rem;
+    padding: 0.35rem 0.85rem 0.35rem 0.35rem;
+    border-radius: 1.25rem;
+  }
+
+  .np-wide:hover .np-wide-art,
+  .np-wide:focus-visible .np-wide-art {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.85rem;
+  }
+
+  .np-wide:hover .np-wide-meta,
+  .np-wide:focus-visible .np-wide-meta {
+    opacity: 1;
+    max-width: 12rem;
+    flex: 1;
+  }
+
+  .np-wide:hover .np-wide-eq,
+  .np-wide:focus-visible .np-wide-eq {
+    opacity: 1;
+    width: auto;
+  }
+
+  /* —— Narrow / Dynamic Island —— */
+  .np-island {
+    display: flex;
+    position: absolute;
+    top: 0.75rem;
+    left: 50%;
+    align-items: center;
+    gap: 0.55rem;
+    width: 7.25rem;
+    height: 2.35rem;
+    padding: 0.28rem 0.7rem 0.28rem 0.28rem;
+    border-radius: 9999px;
+    background: #0a0a0a;
+    color: #f5f5f5;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.35),
+      0 12px 32px -14px rgb(0 0 0 / 0.65);
+    outline: 1px solid rgb(255 255 255 / 0.08);
+    text-decoration: none;
+    transform: translateX(-50%);
+    transition:
+      width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .np-island-art {
+    width: 1.8rem;
+    height: 1.8rem;
+    flex-shrink: 0;
+    border-radius: 0.45rem;
+    object-fit: cover;
+  }
+
+  .np-island-meta {
+    display: grid;
+    min-width: 0;
+    flex: 1;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    transition:
+      opacity 0.2s ease,
+      max-width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .np-island-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .np-island-artist {
+    font-size: 0.65rem;
+    color: rgb(255 255 255 / 0.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .np-island-eq {
+    margin-left: auto;
+    color: #ff6b4a;
+  }
+
+  .np-island[data-expanded='true'] {
+    width: min(92vw, 20rem);
+    height: 3rem;
+    padding: 0.35rem 0.85rem 0.35rem 0.35rem;
+  }
+
+  .np-island[data-expanded='true'] .np-island-art {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .np-island[data-expanded='true'] .np-island-meta {
+    opacity: 1;
+    max-width: 14rem;
+  }
+
+  @media (min-width: 768px) {
+    .np-wide {
+      display: flex;
+    }
+
+    .np-island {
+      display: none;
+    }
+  }
+
+  /* —— EQ —— */
+  .np-eq {
+    display: none;
+    align-items: flex-end;
+    gap: 2px;
+    height: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .np-eq[data-active='true'] {
+    display: inline-flex;
+  }
+
+  .np-eq-bar {
+    display: block;
+    width: 2.5px;
+    border-radius: 999px;
+    background: currentColor;
+    height: 35%;
+    color: inherit;
+  }
+
+  .np-wide-eq {
+    color: #d51007;
+  }
+
+  .np-eq[data-active='true'] .np-eq-bar:nth-child(1) {
+    animation: np-eq 0.9s ease-in-out infinite;
+  }
+  .np-eq[data-active='true'] .np-eq-bar:nth-child(2) {
+    animation: np-eq 0.9s ease-in-out 0.12s infinite;
+  }
+  .np-eq[data-active='true'] .np-eq-bar:nth-child(3) {
+    animation: np-eq 0.9s ease-in-out 0.24s infinite;
+  }
+  .np-eq[data-active='true'] .np-eq-bar:nth-child(4) {
+    animation: np-eq 0.9s ease-in-out 0.18s infinite;
+  }
+  .np-eq[data-active='true'] .np-eq-bar:nth-child(5) {
+    animation: np-eq 0.9s ease-in-out 0.3s infinite;
+  }
+
+  @keyframes np-eq {
+    0%,
+    100% {
+      height: 28%;
+    }
+    50% {
+      height: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .np-wide,
+    .np-wide-art,
+    .np-wide-meta,
+    .np-wide-eq,
+    .np-island,
+    .np-island-meta {
+      transition: none;
+    }
+
+    .np-eq[data-active='true'] .np-eq-bar {
+      animation: none;
+      height: 55%;
+    }
+  }
+</style>
+
+<script>
+  type TrackImage = { size: string; '#text': string };
+  type RecentTrack = {
+    name: string;
+    artist: { '#text': string };
+    image: TrackImage[];
+    '@attr'?: { nowplaying?: string };
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-now-playing]');
+  if (root) {
+    const apiKey = root.dataset.apiKey || '';
+    const user = root.dataset.user || 'mwilzin';
+    const island = root.querySelector<HTMLAnchorElement>('[data-np-island]');
+    const arts = root.querySelectorAll<HTMLImageElement>('[data-np-art], [data-np-art-sm]');
+    const labels = root.querySelectorAll<HTMLElement>('[data-np-label]');
+    const titles = root.querySelectorAll<HTMLElement>('[data-np-title], [data-np-title-sm]');
+    const artists = root.querySelectorAll<HTMLElement>('[data-np-artist], [data-np-artist-sm]');
+    const eqs = root.querySelectorAll<HTMLElement>('[data-np-eq], [data-np-eq-sm]');
+
+    const hide = () => {
+      root.hidden = true;
+      root.dataset.ready = 'false';
+    };
+
+    const showTrack = (track: RecentTrack) => {
+      const nowPlaying = track['@attr']?.nowplaying === 'true';
+      const image =
+        [...(track.image || [])].reverse().find((img) => img['#text'])?.['#text'] || '';
+      if (!image) {
+        hide();
+        return;
+      }
+
+      const trackName = track.name || 'Unbekannter Titel';
+      const artistName = track.artist?.['#text'] || 'Unbekannter Artist';
+      const label = nowPlaying ? 'Spielt gerade' : 'Zuletzt gehört';
+
+      for (const art of arts) {
+        art.src = image;
+        art.alt = `Cover: ${trackName}`;
+      }
+      for (const el of labels) el.textContent = label;
+      for (const el of titles) el.textContent = trackName;
+      for (const el of artists) el.textContent = artistName;
+      for (const eq of eqs) {
+        if (nowPlaying) eq.dataset.active = 'true';
+        else {
+          eq.removeAttribute('data-active');
+        }
+      }
+
+      root.hidden = false;
+      requestAnimationFrame(() => {
+        root.dataset.ready = 'true';
+      });
+    };
+
+    const fetchTrack = async () => {
+      if (!apiKey) {
+        hide();
+        return;
+      }
+
+      try {
+        const url = new URL('https://ws.audioscrobbler.com/2.0/');
+        url.searchParams.set('method', 'user.getrecenttracks');
+        url.searchParams.set('user', user);
+        url.searchParams.set('api_key', apiKey);
+        url.searchParams.set('limit', '1');
+        url.searchParams.set('format', 'json');
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const tracks = data?.recenttracks?.track;
+        const track: RecentTrack | undefined = Array.isArray(tracks) ? tracks[0] : tracks;
+        if (!track?.name) throw new Error('No track');
+        showTrack(track);
+      } catch {
+        hide();
+      }
+    };
+
+    // Mobile: first tap expands island; second tap follows link
+    if (island) {
+      island.addEventListener('click', (event) => {
+        if (window.matchMedia('(min-width: 768px)').matches) return;
+        if (island.dataset.expanded === 'true') return;
+        event.preventDefault();
+        island.dataset.expanded = 'true';
+      });
+
+      document.addEventListener('pointerdown', (event) => {
+        if (!(event.target instanceof Node)) return;
+        if (!island.contains(event.target)) {
+          island.dataset.expanded = 'false';
+        }
+      });
+    }
+
+    fetchTrack();
+
+    let timer = 0;
+    const start = () => {
+      if (timer || !apiKey) return;
+      timer = window.setInterval(() => {
+        if (document.visibilityState === 'visible') fetchTrack();
+      }, 60_000);
+    };
+    const stop = () => {
+      if (!timer) return;
+      clearInterval(timer);
+      timer = 0;
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        fetchTrack();
+        start();
+      } else {
+        stop();
+      }
+    });
+    start();
+  }
+</script>

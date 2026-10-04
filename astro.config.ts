@@ -29,6 +29,9 @@ export default defineConfig({
   trailingSlash: 'always',
   site: 'https://mwilzin.de',
   base: '/',
+  redirects: {
+    '/kapitel': 'https://getkapitel.app',
+  },
 
   integrations: [
     sitemap(),

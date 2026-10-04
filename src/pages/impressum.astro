@@ -1,8 +1,7 @@
 ---
 import KapitelPage from '~/components/kapitel/KapitelPage.astro';
-import { getPermalink } from '~/utils/permalinks';
 
-const imprintEmail = 'marc@mwilzin.de';
+const imprintEmail = 'hi@mwilzin.de';
 ---
 
 <KapitelPage
@@ -10,7 +9,7 @@ const imprintEmail = 'marc@mwilzin.de';
   description="Impressum und Anbieterkennzeichnung für mwilzin.de und die App Kapitel."
 >
   <nav class="kapitel-nav">
-    <a href={getPermalink('/kapitel')}>← Zurück zu Kapitel</a>
+    <a href="https://getkapitel.app" target="_blank" rel="noopener">← Zu getkapitel.app</a>
   </nav>
 
   <p class="kapitel-eyebrow">Rechtliches</p>

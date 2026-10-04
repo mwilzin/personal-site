@@ -1,6 +1,5 @@
 ---
 import KapitelPage from '~/components/kapitel/KapitelPage.astro';
-import { getPermalink } from '~/utils/permalinks';
 import { Content as DatenschutzContent } from '~/data/kapitel-datenschutz.md';
 ---
 
@@ -9,7 +8,7 @@ import { Content as DatenschutzContent } from '~/data/kapitel-datenschutz.md';
   description="Datenschutzrichtlinie für die Study-App Kapitel."
 >
   <nav class="kapitel-nav">
-    <a href={getPermalink('/kapitel')}>← Zurück zu Kapitel</a>
+    <a href="https://getkapitel.app" target="_blank" rel="noopener">← Zu getkapitel.app</a>
   </nav>
 
   <p class="kapitel-eyebrow">Kapitel</p>
