@@ -137,3 +137,10 @@
 .portrait-cutout {
   mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
 }
+
+@media (max-width: 767px) {
+  .portrait-cutout {
+    /* Fade earlier so the floating mobile cutout can overlap body copy safely */
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+}
