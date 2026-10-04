@@ -30,7 +30,11 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
 
         // Accept boolean (AstroWind config.yaml) or Astro enum strings.
         const trailingSlash =
-          SITE.trailingSlash === true || SITE.trailingSlash === 'always' ? 'always' : 'never';
+          SITE.trailingSlash === true || SITE.trailingSlash === 'always'
+            ? 'always'
+            : SITE.trailingSlash === false || SITE.trailingSlash === 'never'
+              ? 'never'
+              : 'ignore';
 
         updateConfig({
           site: SITE.site,

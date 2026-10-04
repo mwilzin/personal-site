@@ -25,8 +25,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'static',
-  // GitHub Pages project sites prefer directory URLs with trailing slashes.
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   site: 'https://mwilzin.de',
   base: '/',
   redirects: {

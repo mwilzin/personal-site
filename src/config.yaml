@@ -2,8 +2,8 @@ site:
   name: "Marc-Aurel Wilzin"
   site: "https://mwilzin.de/"
   base: "/"
-  # true → Astro trailingSlash: 'always'
-  trailingSlash: true
+  # Match /about and /about/ — bad URLs always hit the custom 404
+  trailingSlash: ignore
   defaultLanguage: "de"
 
 
