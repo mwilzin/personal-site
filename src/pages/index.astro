@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BentoLayout from '~/layouts/BentoLayout.astro';
 import NowPlaying from '~/components/NowPlaying.astro';
 import { getPermalink } from '~/utils/permalinks';
@@ -19,6 +19,13 @@ const linkedin = 'https://linkedin.com/in/mwilzin';
 const kapitelUrl = 'https://getkapitel.app';
 const tvlUrl = 'https://tennis-tvl.de';
 const year = new Date().getFullYear();
+
+const portraitSizes = '(min-width: 1024px) 24rem, (min-width: 768px) 20rem, 70vw';
+const portraitWidths = [360, 520, 720, 900] as const;
+const portraitImages = await Promise.all(
+  portraitWidths.map((width) => getImage({ src: portrait, width, format: 'webp', quality: 78 }))
+);
+const portraitSrcset = portraitImages.map((img, i) => `${img.src} ${portraitWidths[i]}w`).join(', ');
 ---
 
 <BentoLayout
@@ -28,6 +35,15 @@ const year = new Date().getFullYear();
       'Informatik-Student und Full-Stack-Entwickler. Flutter, Swift & Backend — von Kapitel über page one bis TVL Tennis.',
   }}
 >
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    imagesrcset={portraitSrcset}
+    imagesizes={portraitSizes}
+    fetchpriority="high"
+  />
+
   <main class="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 p-4 md:p-6 lg:gap-6 lg:p-8">
     <NowPlaying />
 
@@ -44,8 +60,10 @@ const year = new Date().getFullYear();
             <Image
               src={portrait}
               alt="Porträt von Marc-Aurel Wilzin"
-              widths={[360, 520, 720, 900]}
-              sizes="(min-width: 1024px) 24rem, (min-width: 768px) 20rem, 70vw"
+              width={900}
+              widths={[...portraitWidths]}
+              sizes={portraitSizes}
+              quality={78}
               loading="eager"
               fetchpriority="high"
               class="portrait-cutout w-[min(18rem,72vw)] drop-shadow-xl sm:w-[min(20rem,65vw)] md:absolute md:inset-x-0 md:bottom-0 md:top-3 md:h-[calc(100%-0.75rem)] md:w-full md:max-w-none md:object-contain md:object-bottom md:drop-shadow-xl"
@@ -84,8 +102,10 @@ const year = new Date().getFullYear();
           <Image
             src={kapitelIcon}
             alt="Kapitel App-Icon"
-            width={72}
-            height={72}
+            width={216}
+            widths={[72, 144, 216]}
+            sizes="4.5rem"
+            quality={82}
             loading="eager"
             class="size-[4.5rem] shrink-0 rounded-[1.15rem] shadow-lg ring-1 ring-ring-soft"
           />
@@ -139,7 +159,15 @@ const year = new Date().getFullYear();
         <div class="flex h-full flex-col gap-4">
           <div class="flex items-start justify-between">
             <span class="grid size-11 place-items-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/10">
-              <Image src={tvlLogo} alt="TVL Tennis Logo" width={40} height={40} class="size-9 object-contain" />
+              <Image
+                src={tvlLogo}
+                alt="TVL Tennis Logo"
+                width={120}
+                widths={[40, 80, 120]}
+                sizes="2.25rem"
+                quality={82}
+                class="size-9 object-contain"
+              />
             </span>
             <svg
               aria-hidden="true"
@@ -172,8 +200,10 @@ const year = new Date().getFullYear();
                 <Image
                   src={tvlCourt}
                   alt=""
-                  widths={[280, 420]}
+                  width={360}
+                  widths={[240, 360]}
                   sizes="15rem"
+                  quality={70}
                   class="h-full w-full object-cover object-top opacity-90"
                 />
                 <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -198,8 +228,10 @@ const year = new Date().getFullYear();
               <Image
                 src={scannerboxIcon}
                 alt="scannerbox. App-Icon"
-                width={44}
-                height={44}
+                width={132}
+                widths={[44, 88, 132]}
+                sizes="2.75rem"
+                quality={82}
                 class="size-11 object-cover"
               />
             </span>
@@ -233,15 +265,19 @@ const year = new Date().getFullYear();
               <Image
                 src={pageoneShotChat}
                 alt=""
-                widths={[220, 300]}
+                width={288}
+                widths={[180, 288]}
                 sizes="9rem"
+                quality={68}
                 class="relative z-0 mb-[-48%] w-[44%] max-w-[9rem] origin-bottom translate-x-5 translate-y-2 -rotate-[7deg] rounded-md shadow-2xl ring-1 ring-white/15 transition-transform duration-300 ease-out group-hover:translate-y-0"
               />
               <Image
                 src={scannerboxShotBelege}
                 alt=""
-                widths={[220, 300]}
+                width={288}
+                widths={[180, 288]}
                 sizes="9rem"
+                quality={68}
                 class="relative z-10 -ml-7 mb-[-46%] w-[46%] max-w-[9.25rem] origin-bottom -translate-x-5 translate-y-2 rotate-[6deg] rounded-md shadow-2xl ring-1 ring-white/20 transition-transform duration-300 ease-out group-hover:translate-y-0"
               />
             </div>
@@ -260,8 +296,10 @@ const year = new Date().getFullYear();
               <Image
                 src={kirchenIcon}
                 alt="KirchenANführer App-Icon"
-                widths={[88, 176]}
+                width={132}
+                widths={[44, 88, 132]}
                 sizes="2.75rem"
+                quality={82}
                 class="size-11 object-cover"
               />
             </span>
@@ -297,8 +335,10 @@ const year = new Date().getFullYear();
                 <Image
                   src={kirchenPreview}
                   alt=""
-                  widths={[280, 420]}
+                  width={360}
+                  widths={[240, 360]}
                   sizes="15rem"
+                  quality={68}
                   class="h-full w-full object-cover"
                 />
                 <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#7895b2]/80 to-transparent"></div>
@@ -306,8 +346,10 @@ const year = new Date().getFullYear();
                   <Image
                     src={kirchenIcon}
                     alt=""
-                    widths={[56, 112]}
+                    width={84}
+                    widths={[28, 56, 84]}
                     sizes="1.75rem"
+                    quality={82}
                     class="size-7 rounded-md shadow"
                   />
                   <span class="text-[0.7rem] font-semibold text-white">St. Johannis · Tour starten</span>

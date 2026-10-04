@@ -1,7 +1,9 @@
 ---
+import '~/assets/styles/fonts.css';
 import '~/assets/styles/portfolio.css';
-import '@fontsource-variable/inter';
-import '@fontsource-variable/baloo-2';
+
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import balooLatin from '@fontsource-variable/baloo-2/files/baloo-2-latin-wght-normal.woff2?url';
 
 import { I18N, SITE } from 'astrowind:config';
 
@@ -34,6 +36,9 @@ const { language, textDirection } = I18N;
         ...metadata,
       }}
     />
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={balooLatin} as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
   </head>
   <body class="min-h-dvh bg-page font-sans text-fg antialiased">
     <slot />
