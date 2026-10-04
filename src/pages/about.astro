@@ -4,6 +4,11 @@ import { getPermalink } from '~/utils/permalinks';
 
 const timeline = [
   {
+    title: 'Einzelunternehmen',
+    description:
+      'Seit 14.09.2026: App- und Softwareentwicklung auf eigene Rechnung. Aktuelles Produkt: Kapitel.',
+  },
+  {
     title: 'B.Sc. Informatik',
     description:
       'Eberhard Karls Universität Tübingen (seit Sept. 2024). MINT-Studienbotschafter der Mathematisch-Naturwissenschaftlichen Fakultät (seit 2025).',
@@ -11,12 +16,12 @@ const timeline = [
   {
     title: 'Programmierung & Softwareentwicklung',
     description:
-      'page one GmbH, Nürnberg (10/2021 – 09/2026): scannerbox.mobile (Swift → Flutter + Android), DATEV-Integrationen, CI/CD (TeamCity/Codemagic), RevenueCat, Sentry; interne Page-One-App (Flutter, Voice, CarPlay, Außendienst/Disposition).',
+      'page one GmbH, Nürnberg (10/2021 – 08/2026): scannerbox.mobile (Flutter, iOS & Android), DATEV-Anbindungen, CarPlay, CI/CD, RevenueCat, Sentry — Planung, UI und Umsetzung.',
   },
   {
     title: 'Praktikum iOS-Entwicklung',
     description:
-      'EXARING AG / waipu.tv, München (April 2022): Open-Source-Lizenz-UI für iOS & tvOS, Scrum-Team.',
+      'EXARING AG / waipu.tv, München (25.–29.04.2022): Einblick in iOS & tvOS Entwicklung eines Scrum-Teams.',
   },
   {
     title: 'Abitur',
@@ -28,7 +33,8 @@ const skills = [
   { title: 'Flutter / Dart', level: 'Schwerpunkt' },
   { title: 'Swift / SwiftUI / CarPlay', level: 'Praxis' },
   { title: 'Node.js · TypeScript', level: 'Praxis' },
-  { title: 'Supabase · Firebase · SQL', level: 'Praxis' },
+  { title: 'Serverless · Cloudflare · Supabase · Firebase', level: 'Praxis' },
+  { title: 'Datenbanken · SQL · MariaDB · Postgres', level: 'Praxis' },
   { title: 'CI/CD · Docker · Sentry', level: 'Praxis' },
   { title: 'Englisch', level: 'C1' },
 ];
@@ -37,33 +43,37 @@ const projects = [
   {
     title: 'Kapitel',
     description:
-      'Native Study-App für iPhone, iPad & Mac: Kurse, Fristen, Karteikarten, Fokus-Timer, Uni-Sync. getkapitel.app',
+      'Native Study-App für iPhone, iPad & Mac: Kurse, Fristen, Karteikarten, Fokus-Timer, Synchronisierung von Moodle/Ilias/Stud.IP Inhalten.\nBackend auf Cloudflare (Workers, R2, D1, Access, DNS).',
     href: 'https://getkapitel.app',
   },
   {
     title: 'TVL Tennis',
     description:
-      'Vereins-App für TV Leutershausen: Platzbuchung, News, Kalender, Chats, Partner-Suche, BTV-Spielplan-Sync — Flutter (iOS/Android/Web) + Supabase. tennis-tvl.de',
+      'Vereins-App für TV Leutershausen: Platzbuchung, News, Kalender, Chats, Partner-Suche, BTV-Spielplan-Sync.',
     href: 'https://tennis-tvl.de',
   },
   {
-    title: 'scannerbox. (page one)',
+    title: 'scannerbox.mobile',
     description:
-      'Produktive Belegerfassungs-App: Migration Swift → Flutter inkl. Android, DATEV-Schnittstellen, CI/CD, RevenueCat.',
+      'Dokumentenerfassung mit Kamera und Netzwerk-Hardwarescanner (z. B. Kopierer), DATEV-Schnittstellen zu Unternehmen online, Meine Steuern und Personalakte. CI/CD, Sentry, RevenueCat.',
+    href: 'https://scannerbox.de',
   },
   {
     title: 'Page One App (intern)',
     description:
-      'Interne Flutter-App bei page one: Voice-Assistent, CarPlay, Kunden, Termine, Disposition und Maps — produktiv im Außendienst.',
+      'Interne Flutter-App bei page one: KI-Assistent, CarPlay, Kunden, Termine, Disposition und Maps.',
+    href: 'https://www.page-one.de',
   },
   {
     title: 'KirchenANführer',
     description:
       'Interaktiver Guide für St. Gumbertus & St. Johannis (Ansbach): Solo-/Gruppentouren, Quiz-Typen, GPS & Indoor-Karten, Firebase — technischer Leiter im P-Seminar, Bayerischer P-Seminar-Preis.',
+    href: 'https://apps.apple.com/app/kirchenanf%C3%BChrer/id6469477611',
   },
   {
     title: 'Ferienwohnungs-Verwaltung',
-    description: 'Smoobu-Webhooks → Nuki-Zugangscodes, Reinigungspläne — Node.js, Flutter, Supabase (seit 2024).',
+    description: 'Smoobu-Webhooks → Nuki-Zugangscodes, Reinigungspläne.\nNode.js, Flutter, Supabase.',
+    href: 'https://www.stadtsterne.com',
   },
 ];
 ---
@@ -85,9 +95,9 @@ const projects = [
           <span class="text-accent-gradient">in der Praxis</span>
         </h1>
         <p class="mt-4 max-w-[60ch] text-muted">
-          Seit 2021 baue ich Apps, die live genutzt werden — bei page one (scannerbox., interne Page-One-App,
-          DATEV) und in eigenen Produkten wie Kapitel und TVL Tennis. Dazu kommen CI/CD, Schnittstellen und der
-          Betrieb der Infrastruktur.
+          Seit September 2026 führe ich mein Einzelunternehmen und entwickle Kapitel: mein aktuelles Projekt von
+          Student für Studenten. Davor habe ich von 2021 bis 2026 bei page one zwei Apps mit DATEV-Anbindung
+          überwiegend allein geplant, gestaltet und umgesetzt.
         </p>
       </div>
 
@@ -140,7 +150,7 @@ const projects = [
                   project.title
                 )}
               </h3>
-              <p class="mt-1 text-sm text-muted">{project.description}</p>
+              <p class="mt-1 whitespace-pre-line text-sm text-muted">{project.description}</p>
             </div>
           ))
         }

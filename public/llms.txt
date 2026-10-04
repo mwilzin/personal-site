@@ -1,0 +1,26 @@
+# Marc-Aurel Wilzin
+
+> Informatik-Student (Uni Tübingen) und Full-Stack-Entwickler. Seit September 2026 Einzelunternehmen; aktuelles Produkt: Kapitel. Davor 2021-2026 bei page one Apps mit DATEV-Anbindung geplant, gestaltet und umgesetzt.
+
+Persönliche Website auf Deutsch. Schwerpunkte: Cross-Platform Apps (Flutter), native Apple-Komponenten, Backend und Serverinfrastruktur. Kontakt: hi@mwilzin.de
+
+## Pages
+
+- [Home](https://mwilzin.de/): Kurzportrait, Flagship-Projekt Kapitel, Projektübersicht und Kontakt
+- [About](https://mwilzin.de/about): Werdegang, Skills, Timeline, Projekte und Engagement
+- [Impressum](https://mwilzin.de/impressum): Rechtliche Angaben
+
+## Projects
+
+- [Kapitel](https://getkapitel.app): Native Study-App für iPhone, iPad & Mac (Kurse, Fristen, Karteikarten, Fokus-Timer, Moodle/Ilias/Stud.IP-Sync). Backend auf Cloudflare (Workers, R2, D1, Access, DNS)
+- [TVL Tennis](https://tennis-tvl.de): Vereins-App für TV Leutershausen (Platzbuchung, News, Kalender, Chats, Partner-Suche, BTV-Spielplan). Flutter · Supabase · iOS, Android, Web
+- [scannerbox.mobile](https://scannerbox.de): Dokumentenerfassung mit Kamera und Netzwerk-Hardwarescanner, DATEV (Unternehmen online, Meine Steuern, Personalakte). Entwickelt bei page one GmbH
+- [page one](https://www.page-one.de): Interne Flutter-App mit KI-Assistent, CarPlay, Kunden, Termine, Disposition und Maps
+- [KirchenANführer](https://apps.apple.com/app/kirchenanf%C3%BChrer/id6469477611): Interaktiver Kirchenführer für St. Gumbertus & St. Johannis in Ansbach. Bayerischer P-Seminar-Preis
+- [Ferienwohnungs-Verwaltung / Stadtsterne](https://www.stadtsterne.com): Smoobu-Webhooks → Nuki-Zugangscodes, Reinigungspläne. Node.js, Flutter, Supabase
+
+## Optional
+
+- [GitHub](https://github.com/mwilzin): Code, Experimente und Open-Source-Beiträge
+- [LinkedIn](https://linkedin.com/in/mwilzin): Professionelles Profil
+- [Sitemap](https://mwilzin.de/sitemap-index.xml): Alle indexierbaren Seiten
