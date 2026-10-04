@@ -25,7 +25,8 @@
 
 :root {
   color-scheme: light;
-  --aw-page: oklch(97% 0 none);
+  --aw-page: oklch(96.5% 0.012 145);
+  --aw-page-glow: oklch(92% 0.04 150);
   --aw-fg: oklch(26.9% 0 none);
   --aw-fg-strong: oklch(14.5% 0 none);
   --aw-muted: oklch(45% 0 none);
@@ -48,12 +49,15 @@
   --aw-cta-bg-hover: var(--color-kapitel);
   --aw-cta-text: oklch(100% 0 none);
   --aw-selection-fg: oklch(97% 0 none);
+  --aw-grain-opacity: 0.22;
+  --aw-grain-blend: multiply;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --aw-page: oklch(14.5% 0 none);
+    --aw-page: oklch(14% 0.025 150);
+    --aw-page-glow: oklch(22% 0.055 150);
     --aw-fg: oklch(92.2% 0 none);
     --aw-fg-strong: oklch(97% 0 none);
     --aw-muted: oklch(70.8% 0 none);
@@ -76,6 +80,8 @@
     --aw-cta-bg-hover: var(--color-kapitel-strong);
     --aw-cta-text: oklch(20.5% 0 none);
     --aw-selection-fg: oklch(20.5% 0 none);
+    --aw-grain-opacity: 0.35;
+    --aw-grain-blend: soft-light;
   }
 }
 
@@ -93,6 +99,39 @@
   body {
     background-color: var(--aw-page);
     color: var(--aw-fg);
+  }
+
+  /* Soft emerald wash behind the bento grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 80% at 15% 100%, var(--aw-page-glow), transparent 55%),
+      radial-gradient(90% 60% at 90% 0%, color-mix(in oklab, var(--aw-page-glow) 55%, transparent), transparent 50%),
+      var(--aw-page);
+  }
+
+  /* Procedural film grain (SVG turbulence) */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: var(--aw-grain-opacity);
+    mix-blend-mode: var(--aw-grain-blend);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::after {
+      opacity: calc(var(--aw-grain-opacity) * 0.55);
+    }
   }
 }
 
