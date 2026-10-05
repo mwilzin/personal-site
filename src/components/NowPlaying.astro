@@ -35,18 +35,10 @@ const apiKey = import.meta.env.PUBLIC_LASTFM_API_KEY ?? '';
 </div>
 
 <style>
-  /* Fixed overlay — never shifts document flow / CLS when it appears */
   .np-root {
     display: flex;
-    position: fixed;
-    top: 0.65rem;
-    left: 50%;
-    z-index: 40;
     justify-content: center;
-    width: max-content;
-    max-width: calc(100vw - 1.5rem);
-    pointer-events: none;
-    transform: translateX(-50%);
+    width: 100%;
   }
 
   .np-island {
@@ -68,7 +60,6 @@ const apiKey = import.meta.env.PUBLIC_LASTFM_API_KEY ?? '';
       0 12px 32px -14px rgb(0 0 0 / 0.65);
     outline: 1px solid rgb(255 255 255 / 0.08);
     text-decoration: none;
-    pointer-events: auto;
     opacity: 0;
     transform: scale(0.7);
     transition:
